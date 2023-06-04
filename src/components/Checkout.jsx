@@ -1,12 +1,10 @@
-// components/Orders.jsx
-
 import { useMemo } from "react";
+import useActions from "../hooks/useActions";
 import useOrders from "../hooks/useOrders";
 import usePrototypes from "../hooks/usePrototypes";
-import useActions from "../hooks/useActions";
 import { Link } from "react-router-dom";
 
-export default function Orders() {
+export default function CheckOut() {
   const orders = useOrders();
   const prototypes = usePrototypes();
   const { remove, removeAll } = useActions();
@@ -31,8 +29,14 @@ export default function Orders() {
       </aside>
     );
   }
+
   return (
     <aside>
+      <header>
+        <div className="header__container">
+          <div className="title">CheckOut</div>
+        </div>
+      </header>
       <div className="order">
         <div className="body">
           {orders.map((order) => {
@@ -52,12 +56,7 @@ export default function Orders() {
                   </p>
                 </div>
                 <div className="action">
-                  <div className="price">
-                    $ {prototype.price * order.quantity}
-                  </div>
-                  <button className="btn btn--link" onClick={click}>
-                    <i className="icon icon--cross" />
-                  </button>
+                  <p className="price">$ {prototype.price * order.quantity}</p>
                 </div>
               </div>
             );
@@ -70,16 +69,18 @@ export default function Orders() {
             <div className="action">
               <div className="price">$ {totalPrice}</div>
             </div>
-            <button className="btn btn--link" onClick={removeAll}>
-              <i className="icon icon--delete" />
-            </button>
           </div>
           <button
             className="btn btn--secondary"
-            style={{ width: "100%", marginTop: 10 }}
+            style={{ width: "50%", marginTop: 50 }}
           >
-            {/* Checkout */}
-            <Link to="/checkout">Checkout</Link>
+            <Link to="/checkout">Payment</Link>
+          </button>
+          <button
+            className="btn btn--secondary"
+            style={{ width: "50%", marginTop: 50 }}
+          >
+            <Link to="/">Cancel</Link>
           </button>
         </div>
       </div>
